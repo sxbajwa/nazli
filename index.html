@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nazli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="nazli.css" />
+
+  <style>
+    .heart {
+      position: absolute;
+      color: hotpink;
+      font-size: 20px;
+      animation: pop 0.8s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: translateY(-40px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="embed">
+
+  <!-- GIF -->
+  <div class="gif-embed">
+    <img src="cute.gif" alt="cute gif" />
+  </div>
+
+  <!-- SONGS -->
+  <div class="songs">
+
+    <div class="song-card" onclick="playSong(0)">
+      <img src="img1.jpg" />
+      <h3>°ꉂ (≧ヮ≦)</h3>
+      <button class="like-btn" onclick="like(event)">❤</button>
+    </div>
+
+    <div class="song-card" onclick="playSong(1)">
+      <img src="img2.jpg" />
+      <h3>(˶°ㅁ°) !!</h3>
+      <button class="like-btn" onclick="like(event)">❤</button>
+    </div>
+
+    <div class="song-card" onclick="playSong(2)">
+      <img src="img3.jpg" />
+      <h3>˙𐃷˙</h3>
+      <button class="like-btn" onclick="like(event)">❤</button>
+    </div>
+
+  </div>
+
+  <p class="quote">Happy birthday 🎉</p>
+
+  <!-- NEXT BUTTON -->
+  <a href="index2.html" class="next-btn" onclick="setNextSong()">
+    next ♡
+  </a>
+
+</div>
+
+<!-- AUDIO -->
+<audio id="player"></audio>
+
+<script>
+  const songs = ["song1.mp3", "song2.mp3", "song3.mp3"];
+  const player = document.getElementById("player");
+  let currentSong = -1;
+
+  function playSong(index) {
+    if (currentSong === index) return;
+
+    currentSong = index;
+    player.src = songs[index];
+    player.load();
+    player.play();
+    highlightSong();
+  }
+
+  function highlightSong() {
+    document.querySelectorAll(".song-card").forEach((card, i) => {
+      card.style.boxShadow =
+        i === currentSong
+          ? "0 0 25px rgba(255,105,180,0.8)"
+          : "0 8px 20px rgba(0,0,0,0.12)";
+    });
+  }
+
+  function like(event) {
+    event.stopPropagation();
+
+    const heart = document.createElement("span");
+    heart.className = "heart";
+    heart.innerText = "❤";
+    event.currentTarget.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 800);
+  }
+
+  function setNextSong() {
+    localStorage.setItem("playSong4", "true");
+  }
+</script>
+
+</body>
+</html>
